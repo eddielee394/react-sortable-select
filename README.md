@@ -4,8 +4,9 @@
 
 [![NPM](https://img.shields.io/npm/v/react-sortable-select.svg)](https://www.npmjs.com/package/react-sortable-select) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-##Demo
 
+
+![demo image](./docs/images/sortable_select_input.gif)
 
 ## Install
 
