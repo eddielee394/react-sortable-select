@@ -14,14 +14,39 @@ npm install --save react-sortable-select
 
 ```jsx
 import React, { Component } from 'react'
+import SortableSelectInput from 'react-sortable-select'
 
-import MyComponent from 'react-sortable-select'
-import 'react-sortable-select/dist/index.css'
+function App(props){
+    const handleChipChange = () => console.log('chip changed');
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+    const handleOnDragEnd = () => console.log('chip drag completec')
+
+    return (<SortableSelectInput
+        className=''
+        name='itemValues'
+        value={itemValues}
+        onChange={(value, index) =>
+          handleChipChange('itemValues', value, index)
+        }
+        placeholder='Select multiple items'
+        textFieldProps={{
+          label: 'items',
+          variant: 'outlined',
+          InputLabelProps: {
+            shrink: true
+          }
+        }}
+        options={defaultItems.map((item) => ({
+          value: item.id,
+          label: item.label,
+          class: item.class
+        }))}
+        isMulti
+        isSortable
+        onDragEnd={handleOnDragEnd}
+        fullWidth
+        variant='fixed'
+      />)
 }
 ```
 
