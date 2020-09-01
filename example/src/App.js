@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useState } from 'react'
 import SortableSelectInput from 'react-sortable-select'
-import 'react-sortable-select/dist/index.css'
 
 const classes = {
   container: {
