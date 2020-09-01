@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react'
 import SortableSelectInput from 'react-sortable-select'
 import 'react-sortable-select/dist/index.css'
 
-const defaultItems = []
+const classes = {
+  container: {
+    margin: 20
+  }
+}
 
+const defaultItems = []
 for (let i = 1; i <= 10; i++) {
   defaultItems.push({
     id: i,
@@ -51,30 +56,34 @@ const App = () => {
   }
 
   return (
-    <SortableSelectInput
-      className=''
-      name='itemValues'
-      value={itemValues}
-      onChange={(value, index) => handleChipChange('itemValues', value, index)}
-      placeholder='Select multiple items'
-      textFieldProps={{
-        label: 'items',
-        variant: 'outlined',
-        InputLabelProps: {
-          shrink: true
+    <div style={classes.container}>
+      <SortableSelectInput
+        className=''
+        name='itemValues'
+        value={itemValues}
+        onChange={(value, index) =>
+          handleChipChange('itemValues', value, index)
         }
-      }}
-      options={defaultItems.map((item) => ({
-        value: item.id,
-        label: item.label,
-        class: item.class
-      }))}
-      isMulti
-      isSortable
-      onDragEnd={handleOnDragEnd}
-      fullWidth
-      variant='fixed'
-    />
+        placeholder='Select multiple items'
+        textFieldProps={{
+          label: 'items',
+          variant: 'outlined',
+          InputLabelProps: {
+            shrink: true
+          }
+        }}
+        options={defaultItems.map((item) => ({
+          value: item.id,
+          label: item.label,
+          class: item.class
+        }))}
+        isMulti
+        isSortable
+        onDragEnd={handleOnDragEnd}
+        fullWidth
+        variant='fixed'
+      />
+    </div>
   )
 }
 
