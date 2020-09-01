@@ -10,9 +10,13 @@
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "clsx": "^1.1.1",
     "react": "link:../node_modules/react",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
+    "react-select": "^3.1.0",
     "react-sortable-select": "link:.."
   },
   "devDependencies": {
@@ -26,5 +30,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "peerDependencies": {}
 }
