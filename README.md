@@ -1,13 +1,16 @@
 # react-sortable-select
 
-> Sortable select input component for react
+> Sortable select input component for react. [View demo](https://eddielee394.github.io/react-sortable-select/).
 
 [![NPM](https://img.shields.io/npm/v/react-sortable-select.svg)](https://www.npmjs.com/package/react-sortable-select) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+##Demo
+
 
 ## Install
 
 ```bash
-npm install --save react-sortable-select
+yarn add react-sortable-select
 ```
 
 ## Usage

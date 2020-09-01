@@ -58,5 +58,6 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "homepage": "https://eddielee394.github.io/react-sortable-select"
 }
