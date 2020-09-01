@@ -1,30 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import SortableSelectInput from 'react-sortable-select'
 import 'react-sortable-select/dist/index.css'
 
-const items = []
-// const items = {
-//   props: {
-//     avatar: (
-//       <Avatar
-//         className={classes.avatarSmall}
-//         style={{
-//           color: "#cecece",
-//           backgroundColor: strength.category_colors[0]
-//         }}
-//       >
-//         {strengthValue.order}
-//       </Avatar>
-//     )
-//   },
-//   value: strength.id,
-//   label: strength.title,
-//   color: strength.category_colors[0],
-//   order: strengthValue.order || index + 1
-// };
+const defaultItems = []
+
 for (let i = 1; i <= 10; i++) {
-  items.push({
+  defaultItems.push({
     id: i,
     label: `Item ${i}`,
     class: 'bg-red',
@@ -37,7 +19,6 @@ const App = () => {
   const [fieldValue, setFieldValue] = useState()
 
   function handleChipChange(name, value) {
-    console.log(name, value.map((val, index) => ({ ...val, order: index + 1 })))
     setFieldValue(value.map((val, index) => ({ ...val, order: index + 1 })))
   }
 
@@ -56,13 +37,12 @@ const App = () => {
     }
 
     const items = reorder(
-      itemValues,
+      fieldValue,
       result.source.index,
       result.destination.index
     )
 
     setFieldValue(
-      'itemValues',
       items.map((item, index) => ({
         ...item,
         order: index + 1
@@ -84,7 +64,7 @@ const App = () => {
           shrink: true
         }
       }}
-      options={items.map((item) => ({
+      options={defaultItems.map((item) => ({
         value: item.id,
         label: item.label,
         class: item.class
