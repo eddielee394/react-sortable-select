@@ -6,7 +6,7 @@
 
 
 
-![demo image](./docs/images/sortable_select_input.gif)
+![demo image](docs/images/sortable_select_input.gif)
 
 ## Install
 
