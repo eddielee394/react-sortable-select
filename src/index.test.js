@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { SortableSelectInput } from '.'
 
-describe('ExampleComponent', () => {
+describe('SortableSelectInput', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(SortableSelectInput).toBeTruthy()
   })
 })
