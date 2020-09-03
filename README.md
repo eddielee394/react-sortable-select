@@ -21,7 +21,22 @@ See example folder for more detailed implementation.
 import React, { Component } from 'react'
 import SortableSelectInput from 'react-sortable-select'
 
-function App(props){
+const defaultItems = [
+  {
+    id: 1,
+    label: `Item A`,
+    class: 'bg-red',
+    order: 1
+  },
+  {
+    id: 2,
+    label: `Item B`,
+    class: 'bg-red',
+    order: 2
+  }
+];
+
+function App(){
     const [fieldValues, setFieldValues] = useState([])
 
     const handleChipChange = () => console.log('chip changed');
@@ -59,6 +74,11 @@ function App(props){
 }
 ```
 
-## License
+#### Built on the shoulders of giants
+- [Material UI](https://github.com/mui-org/material-ui)
+- [React Select](https://github.com/jedwatson/react-select)
+- [React Beautiful DND](https://github.com/atlassian/react-beautiful-dnd)
+
+
 
 (MIT) © [eddielee394](https://github.com/eddielee394)
