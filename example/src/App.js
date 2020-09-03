@@ -1,28 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SortableSelectInput from 'react-sortable-select'
-
+import { data } from './data'
 const classes = {
   container: {
     margin: 20
   }
 }
 
-const defaultItems = []
-for (let i = 1; i <= 10; i++) {
-  defaultItems.push({
-    id: i,
-    label: `Item ${i}`,
-    class: 'bg-red',
-    order: i
-  })
-}
+const defaultItems = data
 
 const App = () => {
-  const [itemValues, setItemValues] = useState()
-  const [fieldValue, setFieldValue] = useState()
+  const [fieldValues, setFieldValues] = useState([])
 
+  useEffect(() => {
+    console.log('fieldValue: ', fieldValues)
+  }, [fieldValues])
   function handleChipChange(name, value) {
-    setFieldValue(value.map((val, index) => ({ ...val, order: index + 1 })))
+    setFieldValues(value.map((val, index) => ({ ...val, order: index + 1 })))
   }
 
   function handleOnDragEnd(result) {
@@ -40,12 +34,12 @@ const App = () => {
     }
 
     const items = reorder(
-      fieldValue,
+      fieldValues,
       result.source.index,
       result.destination.index
     )
 
-    setFieldValue(
+    setFieldValues(
       items.map((item, index) => ({
         ...item,
         order: index + 1
@@ -56,11 +50,11 @@ const App = () => {
   return (
     <div style={classes.container}>
       <SortableSelectInput
-        className=''
-        name='itemValues'
-        value={itemValues}
+        className='select-input'
+        name='fieldValues'
+        value={fieldValues}
         onChange={(value, index) =>
-          handleChipChange('itemValues', value, index)
+          handleChipChange('fieldValues', value, index)
         }
         placeholder='Select multiple items'
         textFieldProps={{
