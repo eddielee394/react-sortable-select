@@ -87,12 +87,12 @@ const useStyles = makeStyles((theme) => ({
   },
   valueContainer: {
     display: 'flex',
-    flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
     paddingBottom: 4,
     paddingTop: 12,
-    minHeight: 40
+    minHeight: 40,
+    overflow: 'scroll'
   },
   chip: {
     margin: '4px 4px 4px 0'
