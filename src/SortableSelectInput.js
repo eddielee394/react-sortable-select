@@ -13,6 +13,13 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 
+const generateId =  () => {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
+
 /**
  * Optimized virtual list for large number of items
  */
@@ -222,7 +229,7 @@ function DroppableValueContainer(props) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable
-        droppableId='valueContainer'
+        droppableId={generateId()}
         type='list'
         direction='horizontal'
       >
