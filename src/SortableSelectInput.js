@@ -1,5 +1,5 @@
 import React from 'react'
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList } from 'react-window'
 import Chip from '@material-ui/core/Chip'
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
@@ -13,20 +13,20 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 
-const generateId =  () => {
+const generateId = () => {
   // Math.random should be unique because of its seeding algorithm.
   // Convert it to base 36 (numbers + letters), and grab the first 9 characters
   // after the decimal.
-  return '_' + Math.random().toString(36).substr(2, 9);
-};
+  return '_' + Math.random().toString(36).substr(2, 9)
+}
 
 /**
  * Optimized virtual list for large number of items
  */
- const OptimizedMenuList = ({ options, children, maxHeight, getValue }) => {
-  const height = 35;
-  const [value] = getValue();
-  const initialOffset = options.indexOf(value) * height;
+const OptimizedMenuList = ({ options, children, maxHeight, getValue }) => {
+  const height = 35
+  const [value] = getValue()
+  const initialOffset = options.indexOf(value) * height
   return (
     <FixedSizeList
       height={maxHeight}
@@ -36,16 +36,15 @@ const generateId =  () => {
     >
       {({ index, style }) => <div style={style}>{children[index]}</div>}
     </FixedSizeList>
-  );
-};
+  )
+}
 
 OptimizedMenuList.propTypes = {
   options: PropTypes.array,
   children: PropTypes.node,
   maxHeight: PropTypes.number,
-  getValue: PropTypes.func,
-};
-
+  getValue: PropTypes.func
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -169,9 +168,9 @@ function Control(props) {
   )
 }
 
-const OptimizedOption = ({children, ...props}) =>{
-  const { onMouseMove, onMouseOver, ...rest } = props.innerProps;
-  const newProps = Object.assign(props, { innerProps: rest });
+const OptimizedOption = ({ children, ...props }) => {
+  const { onMouseMove, onMouseOver, ...rest } = props.innerProps
+  const newProps = Object.assign(props, { innerProps: rest })
   return (
     <MenuItem
       buttonRef={newProps.innerRef}
@@ -228,14 +227,11 @@ function DroppableValueContainer(props) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable
-        droppableId={generateId()}
-        type='list'
-        direction='horizontal'
-      >
+      <Droppable droppableId={generateId()} type='list' direction='horizontal'>
         {(provided) => (
           <div ref={provided.innerRef} className={props.classes.valueContainer}>
             {props.children}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
@@ -297,6 +293,7 @@ function DraggableChip(props) {
             clickable={snapshot.isDragging}
             {...provided.dragHandleProps}
           />
+          {provided.placeholder}
         </div>
       )}
     </Draggable>
