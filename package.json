@@ -59,6 +59,8 @@
   "files": [
     "dist"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "react-window": "^1.8.6"
+  },
   "homepage": "https://eddielee394.github.io/react-sortable-select"
 }
