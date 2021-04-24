@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 4,
     paddingTop: 12,
     minHeight: 40,
-    overflow: 'scroll'
+    overflow: 'auto'
   },
   chip: {
     margin: '4px 4px 4px 0'
