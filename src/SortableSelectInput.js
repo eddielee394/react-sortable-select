@@ -1,4 +1,5 @@
 import React from 'react'
+import { FixedSizeList } from 'react-window'
 import Chip from '@material-ui/core/Chip'
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
@@ -11,6 +12,39 @@ import Creatable from 'react-select/creatable'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
+
+const generateId = () => {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9)
+}
+
+/**
+ * Optimized virtual list for large number of items
+ */
+const OptimizedMenuList = ({ options, children, maxHeight, getValue }) => {
+  const height = 35
+  const [value] = getValue()
+  const initialOffset = options.indexOf(value) * height
+  return (
+    <FixedSizeList
+      height={maxHeight}
+      itemCount={children.length}
+      itemSize={height}
+      initialScrollOffset={initialOffset}
+    >
+      {({ index, style }) => <div style={style}>{children[index]}</div>}
+    </FixedSizeList>
+  )
+}
+
+OptimizedMenuList.propTypes = {
+  options: PropTypes.array,
+  children: PropTypes.node,
+  maxHeight: PropTypes.number,
+  getValue: PropTypes.func
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,12 +86,12 @@ const useStyles = makeStyles((theme) => ({
   },
   valueContainer: {
     display: 'flex',
-    flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
     paddingBottom: 4,
     paddingTop: 12,
-    minHeight: 40
+    minHeight: 40,
+    overflow: 'auto'
   },
   chip: {
     margin: '4px 4px 4px 0'
@@ -134,18 +168,20 @@ function Control(props) {
   )
 }
 
-function Option(props) {
+const OptimizedOption = ({ children, ...props }) => {
+  const { onMouseMove, onMouseOver, ...rest } = props.innerProps
+  const newProps = Object.assign(props, { innerProps: rest })
   return (
     <MenuItem
-      buttonRef={props.innerRef}
-      selected={props.isFocused}
+      buttonRef={newProps.innerRef}
+      selected={newProps.isFocused}
       component='div'
       style={{
-        fontWeight: props.isSelected ? 600 : 400
+        fontWeight: newProps.isSelected ? 600 : 400
       }}
-      {...props.innerProps}
+      {...newProps.innerProps}
     >
-      {props.children}
+      {children}
     </MenuItem>
   )
 }
@@ -191,14 +227,11 @@ function DroppableValueContainer(props) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable
-        droppableId='valueContainer'
-        type='list'
-        direction='horizontal'
-      >
+      <Droppable droppableId={generateId()} type='list' direction='horizontal'>
         {(provided) => (
           <div ref={provided.innerRef} className={props.classes.valueContainer}>
             {props.children}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
@@ -260,6 +293,7 @@ function DraggableChip(props) {
             clickable={snapshot.isDragging}
             {...provided.dragHandleProps}
           />
+          {provided.placeholder}
         </div>
       )}
     </Draggable>
@@ -277,11 +311,12 @@ function Menu(props) {
 }
 
 const components = {
+  MenuList: OptimizedMenuList,
+  Option: OptimizedOption,
   Control,
   Menu,
   MultiValue,
   NoOptionsMessage,
-  Option,
   Placeholder,
   SingleValue,
   ValueContainer

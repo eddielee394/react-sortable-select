@@ -1,4 +1,4 @@
-import { SortableSelectInput } from '.'
+import SortableSelectInput from './SortableSelectInput'
 
 describe('SortableSelectInput', () => {
   it('is truthy', () => {

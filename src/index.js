@@ -1,2 +1,2 @@
-import SortableSelectInput from './SortableSelectInput';
-export default SortableSelectInput;
+import SortableSelectInput from './SortableSelectInput'
+export default SortableSelectInput
