@@ -11,7 +11,7 @@
 ## Install
 
 ```bash
-yarn add react-sortable-select
+npm install react-sortable-select
 ```
 
 ## Usage
