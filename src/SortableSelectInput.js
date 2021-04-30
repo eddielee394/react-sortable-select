@@ -13,39 +13,6 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 
-const generateId = () => {
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return '_' + Math.random().toString(36).substr(2, 9)
-}
-
-/**
- * Optimized virtual list for large number of items
- */
-const OptimizedMenuList = ({ options, children, maxHeight, getValue }) => {
-  const height = 35
-  const [value] = getValue()
-  const initialOffset = options.indexOf(value) * height
-  return (
-    <FixedSizeList
-      height={maxHeight}
-      itemCount={children.length}
-      itemSize={height}
-      initialScrollOffset={initialOffset}
-    >
-      {({ index, style }) => <div style={style}>{children[index]}</div>}
-    </FixedSizeList>
-  )
-}
-
-OptimizedMenuList.propTypes = {
-  options: PropTypes.array,
-  children: PropTypes.node,
-  maxHeight: PropTypes.number,
-  getValue: PropTypes.func
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .fuse-chip-select__input': {
@@ -127,6 +94,39 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(2)
   }
 }))
+
+const generateId = () => {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9)
+}
+
+/**
+ * Optimized virtual list for large number of items
+ */
+const OptimizedMenuList = ({ options, children, maxHeight, getValue }) => {
+  const height = 35
+  const [value] = getValue()
+  const initialOffset = options.indexOf(value) * height
+  return (
+    <FixedSizeList
+      height={maxHeight}
+      itemCount={children.length}
+      itemSize={height}
+      initialScrollOffset={initialOffset}
+    >
+      {({ index, style }) => <div style={style}>{children[index]}</div>}
+    </FixedSizeList>
+  )
+}
+
+OptimizedMenuList.propTypes = {
+  options: PropTypes.array,
+  children: PropTypes.node,
+  maxHeight: PropTypes.number,
+  getValue: PropTypes.func
+}
 
 function NoOptionsMessage(props) {
   const classes = useStyles()
@@ -231,7 +231,6 @@ function DroppableValueContainer(props) {
         {(provided) => (
           <div ref={provided.innerRef} className={props.classes.valueContainer}>
             {props.children}
-            {provided.placeholder}
           </div>
         )}
       </Droppable>
@@ -293,7 +292,6 @@ function DraggableChip(props) {
             clickable={snapshot.isDragging}
             {...provided.dragHandleProps}
           />
-          {provided.placeholder}
         </div>
       )}
     </Draggable>
